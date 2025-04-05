@@ -1,5 +1,8 @@
+name: TodoApp
+
 services:
   backend:
+    image: "todo:backend"
     build: ./backend
     ports:
       - "3000:3000"
@@ -12,6 +15,7 @@ services:
         condition: service_healthy  # Ensure DB is actually ready
 
   frontend:
+    image: "todo:frontend"
     build: ./frontend
     ports:
       - "5173:5173"

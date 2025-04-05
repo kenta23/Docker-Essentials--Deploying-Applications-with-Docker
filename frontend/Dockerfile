@@ -17,3 +17,5 @@ EXPOSE 5173
 
 # 2️⃣ Run Vite Dev Server in Development Mode
 CMD ["bun", "run", "dev", "--host"]
+
+
