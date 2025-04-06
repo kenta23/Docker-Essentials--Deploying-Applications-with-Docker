@@ -106,9 +106,11 @@ const App = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center py-12">
+    <div className="min-h-screen flex items-center justify-center py-12">
       <Card className="w-full max-w-2xl p-8 bg-white shadow-xl rounded-xl">
-        <h1 className="text-4xl font-semibold text-center text-gray-800 mb-6">Todo List</h1>
+        <h1 className="text-4xl font-semibold text-center text-gray-800 mb-6">
+          Todo List
+        </h1>
 
         <div className="mb-6 flex items-center gap-4">
           <Input
@@ -118,7 +120,10 @@ const App = () => {
             placeholder="Add a new task"
             className="flex-grow p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
-          <Button onClick={addTodo} className="bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700">
+          <Button
+            onClick={addTodo}
+            className="bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700"
+          >
             Add
           </Button>
         </div>
@@ -127,15 +132,17 @@ const App = () => {
           <p className="text-center text-gray-500">Loading...</p>
         ) : (
           <ul className="space-y-4">
-            {todos.sort().map((todo) => (
+            {todos.sort((a, b) => Number(b.completed) - Number(a.completed)).map((todo) => (
               <li
                 key={todo.id}
-                className="flex items-center justify-between p-4 bg-gray-200 rounded-lg shadow-md hover:bg-gray-300 transition-all"
+                className="flex items-center w-full min-w-[400px] max-w-[550px] justify-between p-4 bg-gray-200 rounded-lg shadow-md hover:bg-gray-300 transition-all"
               >
                 <div className="flex items-center space-x-4">
                   <Button
                     variant="link"
-                    className={`text-xl ${todo.completed ? 'text-green-500' : 'text-gray-600'}`}
+                    className={`text-xl ${
+                      todo.completed ? "text-green-500" : "text-gray-600"
+                    }`}
                     onClick={() => toggleTodo(todo.id, todo.completed)}
                   >
                     {todo.completed ? <CheckCircle /> : <XCircle />}
@@ -147,30 +154,39 @@ const App = () => {
                         onChange={(e) => setEditingTitle(e.target.value)}
                         className="p-2 border-2 border-gray-300 rounded"
                       />
-                      <Button onClick={editTodo} className="bg-green-500 text-white p-2 rounded-md hover:bg-green-600">
+                      <Button
+                        onClick={editTodo}
+                        className="bg-green-500 text-white p-2 rounded-md hover:bg-green-600"
+                      >
                         Save
                       </Button>
                     </div>
                   ) : (
                     <span
-                      className={`text-lg ${todo.completed ? 'line-through text-gray-500' : 'text-gray-700'}`}
+                      className={`text-lg ${
+                        todo.completed
+                          ? "line-through text-gray-500"
+                          : "text-gray-700"
+                      }`}
                     >
-                      {todo?.title || 'No title'}
+                      {todo?.title || "No title"}
                     </span>
                   )}
                 </div>
-                <Button
-                  onClick={() => deleteTodo(todo.id)}
-                  className="bg-red-600 text-white p-2 rounded-md hover:bg-red-700"
-                >
-                  <XCircle size={18} />
-                </Button>
-                <Button
-                  onClick={() => startEditing(todo.id, todo.title)}
-                  className="bg-yellow-600 text-white p-2 rounded-md hover:bg-yellow-700"
-                >
-                  <Edit size={18} />
-                </Button>
+                <div className="flex items-center space-x-3">
+                  <Button
+                    onClick={() => deleteTodo(todo.id)}
+                    className="bg-red-600 text-white p-2 rounded-md hover:bg-red-700"
+                  >
+                    <XCircle size={18} />
+                  </Button>
+                  <Button
+                    onClick={() => startEditing(todo.id, todo.title)}
+                    className="bg-yellow-600 text-white p-2 rounded-md hover:bg-yellow-700"
+                  >
+                    <Edit size={18} />
+                  </Button>
+                </div>
               </li>
             ))}
           </ul>
