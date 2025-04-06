@@ -108,7 +108,7 @@ const App = () => {
   return (
     <div className="min-h-screen bg-gray-100 flex items-center justify-center py-12">
       <Card className="w-full max-w-2xl p-8 bg-white shadow-xl rounded-xl">
-        <h1 className="text-4xl font-semibold text-center text-gray-800 mb-6">Todo List</h1>
+        <h1 className="text-4xl font-semibold text-center text-gray-800 mb-6">Todos List</h1>
 
         <div className="mb-6 flex items-center gap-4">
           <Input

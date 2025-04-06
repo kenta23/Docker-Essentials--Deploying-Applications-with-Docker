@@ -10,7 +10,10 @@ export default defineConfig({
       // the origin you will be accessing via browser
       origin: 'http://localhost:3000',
     },
-    
+    watch: { 
+      usePolling: true,
+      interval: 1000,
+    }
   },
   build: { 
      manifest: true,

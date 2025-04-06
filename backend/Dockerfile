@@ -19,4 +19,4 @@ EXPOSE 3000
 
 # Use the entrypoint script
 ENTRYPOINT ["./entrypoint.sh"]
-CMD ["bun", "run", "index.ts"]
+CMD ["bun", "--watch", "run", "index.ts"]

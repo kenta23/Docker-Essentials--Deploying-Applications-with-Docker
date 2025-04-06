@@ -2,26 +2,30 @@ name: TodoApp
 
 services:
   backend:
-    image: "todo:backend"
-    build: ./backend
+    image: todo:backend  # Custom image name
+    build:
+      context: ./backend
     ports:
       - "3000:3000"
-    env_file: ./backend/.env  # Load environment variables
+    env_file: ./backend/.env
     volumes:
-      - ./backend:/app  # Sync code changes for development
-      - /app/node_modules  # Prevent overwriting node_modules
+      - ./backend:/app
+      - /app/node_modules
+    command: bun --watch run index  # Use a dev script like nodemon
     depends_on:
       db:
-        condition: service_healthy  # Ensure DB is actually ready
+        condition: service_healthy
 
   frontend:
-    image: "todo:frontend"
-    build: ./frontend
+    image: todo:frontend  # Custom image name
+    build:
+      context: ./frontend
     ports:
       - "5173:5173"
     volumes:
-      - ./frontend:/app  # Syncs local frontend code with container
-      - /app/node_modules  # Prevents overwriting node_modules
+      - ./frontend:/app
+      - /app/node_modules
+    command: bun run dev --host  # Use a dev script like Vite
     depends_on:
       - backend
 
@@ -36,7 +40,7 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    healthcheck:  # Add health check for PostgreSQL readiness
+    healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 5s
       retries: 5
